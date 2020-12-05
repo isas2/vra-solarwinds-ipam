@@ -20,12 +20,12 @@ Scripts and package
 
 Under ./src/ you'd find separate directory for each IPAM specific operation that the plugin supports.
 
-| Operation name              | Description                                                                                                                               | Script                                          | Required |
-| ----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------|:---------|
-| Allocate IP                 | Allocates the next available IP for a VM                                                                                                  | ./src/main/python/allocate_ip/source.py         | Yes      |
-| Deallocate IP               | Deallocates an already allocated IP                                                                                                       | ./src/main/python/deallocate_ip/source.py       | Yes      |
-| Get IP Ranges               | Data collects IP networks from the IPAM provider                                                                                          | ./src/main/python/get_ip_ranges/source.py       | Yes      |
-| Validate Endpoint           | Validates that the IPAM endpoint credentials are valid and that a connection to the external IPAM system can be established successfully  | ./src/main/python/validate_endpoint/source.py   | Yes      |
+| Operation name              | Description                                                                                                                               | Script                                          |
+| ----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------|
+| Allocate IP                 | Allocates the next available IP for a VM                                                                                                  | ./src/SolarWinds_AllocateIP/source.py         |
+| Deallocate IP               | Deallocates an already allocated IP                                                                                                       | ./src/SolarWinds_DeallocateIP/source.py       |
+| Get IP Ranges               | Data collects IP networks from the IPAM provider                                                                                          | ./src/SolarWinds_GetIPRanges/source.py       |
+| Validate Endpoint           | Validates that the IPAM endpoint credentials are valid and that a connection to the external IPAM system can be established successfully  | ./src/SolarWinds_ValidateEndpoint/source.py   |
 
 The ./src/\*\*/source.py scripts contain the Python source code that would be used by vRA to perform the respective IPAM operation.
 
