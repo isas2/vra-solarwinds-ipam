@@ -1,4 +1,4 @@
-SolarWinds IPAM Integration Plugin
+SolarWinds IPAM vRA 8 Integration Plugin
 ===================
 
 A implementation of an SolarWinds IPAM integration plugin for vRA 8.x
