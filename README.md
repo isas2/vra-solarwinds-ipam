@@ -18,16 +18,14 @@ For more information about the IPAM integration see: [vRA IPAM plugin reference 
 Scripts and package
 ===================
 
-Under ./src/ you'd find separate directory for each IPAM specific operation that the plugin supports.
+Under `./src/` you'd find separate directory for each IPAM specific operation that the plugin supports.
 
 | Operation name              | Description                                                                                                                               | Script                                          |
 | ----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------|
-| Allocate IP                 | Allocates the next available IP for a VM                                                                                                  | ./src/SolarWinds_AllocateIP/source.py         |
-| Deallocate IP               | Deallocates an already allocated IP                                                                                                       | ./src/SolarWinds_DeallocateIP/source.py       |
-| Get IP Ranges               | Data collects IP networks from the IPAM provider                                                                                          | ./src/SolarWinds_GetIPRanges/source.py       |
-| Validate Endpoint           | Validates that the IPAM endpoint credentials are valid and that a connection to the external IPAM system can be established successfully  | ./src/SolarWinds_ValidateEndpoint/source.py   |
-
-The ./src/\*\*/source.py scripts contain the Python source code that would be used by vRA to perform the respective IPAM operation.
+| Allocate IP                 | Allocates the next available IP for a VM                                                                                                  | ./src/SolarWinds_AllocateIP/source.py           |
+| Deallocate IP               | Deallocates an already allocated IP                                                                                                       | ./src/SolarWinds_DeallocateIP/source.py         |
+| Get IP Ranges               | Data collects IP networks from the IPAM provider                                                                                          | ./src/SolarWinds_GetIPRanges/source.py          |
+| Validate Endpoint           | Validates that the IPAM endpoint credentials are valid and that a connection to the external IPAM system can be established successfully  | ./src/SolarWinds_ValidateEndpoint/source.py     |
 
 The `_create_package.sh` script is used to package Python scripts and dependencies into the SolarWinds.zip plugin archive.
 
