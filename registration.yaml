@@ -1,0 +1,10 @@
+---
+name: "SolarWinds"
+description: "SolarWinds IPAM integration for vRealize Automation 8"
+version: "0.7.1"
+
+abxConfig:
+  allocateIPActionId: "SolarWinds_AllocateIP"
+  deallocateIPActionId: "SolarWinds_DeallocateIP"
+  validateEndpointActionId: "SolarWinds_ValidateEndpoint"
+  getIPRangesActionId: "SolarWinds_GetIPRanges"

@@ -1,0 +1,21 @@
+---
+exportVersion: "1"
+exportId: "SolarWinds_GetIPRanges"
+name: "SolarWinds_GetIPRanges"
+runtime: "python"
+entrypoint: "source.handler"
+inputs:
+  pagingAndSorting:
+    maxResults: 50
+    pageToken: "1"
+timeoutSeconds: 600
+deploymentTimeoutSeconds: 600
+dependencies: "requests==2.21.0\norionsdk"
+actionType: "SCRIPT"
+configuration:
+  const-providers:
+  - ""
+  const_azure-system_managed_identity: false
+actionTemplateName: "Custom script"
+actionTemplateNamespace: "com.vmware.automation.abx"
+memoryInMB: 600
