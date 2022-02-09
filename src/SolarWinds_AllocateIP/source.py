@@ -50,7 +50,6 @@ def do_allocate_ip(self, auth_credentials, _):
                                  ["hostName"], username, password)
     allocation_result = []
     try:
-        #resource = self.inputs["resourceInfo"]
         for allocation in self.inputs["ipAllocations"]:
             allocation_result.append(allocate(swis, allocation, custom_ip_address))
     except Exception as error:
