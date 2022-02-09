@@ -1,5 +1,5 @@
 """
-Copyright (c) 2020 Aleksandr Istomin, https://as.zabedu.ru
+Copyright (c) 2022 Aleksandr Istomin, https://as.zabedu.ru
 
 This product is licensed to you under the Apache License, Version 2.0 (the "License").
 You may not use this product except in compliance with the License.
@@ -33,6 +33,13 @@ def do_allocate_ip(self, auth_credentials, _):
     execute operation and
     prepare results
     """
+    custom_ip_address = "none"
+    try:
+        custom_ip_address = self.inputs["ipAllocations"][0]["start"]
+        if custom_ip_address != "none":
+            logging.info("IP set manually: %s", custom_ip_address)
+    except Exception:
+        logging.info("No custom IP address")
     username = auth_credentials["privateKeyId"]
     password = auth_credentials["privateKey"]
     ignore_ssl_warning = self.inputs["endpoint"]["endpointProperties"] \
@@ -41,12 +48,11 @@ def do_allocate_ip(self, auth_credentials, _):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     swis = SwisClient(self.inputs["endpoint"]["endpointProperties"] \
                                  ["hostName"], username, password)
-
     allocation_result = []
     try:
         #resource = self.inputs["resourceInfo"]
         for allocation in self.inputs["ipAllocations"]:
-            allocation_result.append(allocate(swis, allocation))
+            allocation_result.append(allocate(swis, allocation, custom_ip_address))
     except Exception as error:
         try:
             rollback(swis, allocation_result)
@@ -61,7 +67,7 @@ def do_allocate_ip(self, auth_credentials, _):
     }
 
 
-def allocate(swis, allocation):
+def allocate(swis, allocation, ip):
     """
     Get one free IP address and prepare sesult
     """
@@ -69,7 +75,15 @@ def allocate(swis, allocation):
     for range_id in allocation["ipRangeIds"]:
         logging.info("Allocating IP from range %s", range_id)
         try:
-            ip_address = get_free_ip(swis, range_id)
+            if ip is not None and ip != "none":
+                ip_addresses = get_free_ips(swis, get_subnet_id(range_id))
+                if ip in ip_addresses:
+                    ip_address = ip
+                else:
+                    ip_address = None
+                    logging.info("IP %s was not found in the list of free IP addresses", ip)
+            else:
+                ip_address = get_free_ip(swis, range_id)
             if ip_address is not None:
                 result = {
                     "ipAllocationId": allocation["id"],
@@ -131,6 +145,14 @@ def change_ip_status(swis, ip_address, status):
         'status': status
     }
     swis.update(uri, **props)
+
+
+def get_subnet_id(range_id):
+    """
+    Get network SubnetID by RangeID
+    """
+    componets = range_id.split(":")[0].split("/")
+    return componets[1]
 
 
 def get_free_ips(swis, subnet_id):

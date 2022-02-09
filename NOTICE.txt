@@ -1,5 +1,5 @@
 SolarWinds IPAM vRA 8 Integration Plugin
-Copyright (c) 2020 Aleksandr Istomin, https://as.zabedu.ru
+Copyright (c) 2022 Aleksandr Istomin, https://as.zabedu.ru
 
 This product is licensed to you under the Apache 2.0 license (the "License").  You may not use this product except in compliance with the Apache 2.0 License.  
 
