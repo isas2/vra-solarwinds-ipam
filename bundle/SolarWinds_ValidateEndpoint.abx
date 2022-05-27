@@ -9,7 +9,7 @@ inputs:
     hostName: "solarwinds.local"
 timeoutSeconds: 600
 deploymentTimeoutSeconds: 600
-dependencies: "requests==2.21.0\norionsdk"
+##dependencies: "requests==2.21.0\norionsdk"
 actionType: "SCRIPT"
 configuration:
   const-providers:
