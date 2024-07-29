@@ -41,7 +41,7 @@ def do_get_ip_ranges(self, auth_credentials, _):
     if ignore_ssl_warning:
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     swis = SwisClient(self.inputs["endpoint"]["endpointProperties"] \
-                                 ["hostName"], username, password)
+                                 ["hostName"], username, password, self.inputs["endpoint"]["endpointProperties"]["apiPort"])
     page_token = self.inputs['pagingAndSorting'].get('pageToken', None)
     max_results = self.inputs['pagingAndSorting'].get('maxResults', 25)
 
