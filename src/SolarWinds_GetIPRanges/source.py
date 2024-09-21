@@ -9,6 +9,7 @@ and license terms. Your use of these subcomponents is subject to the terms and
 conditions of the subcomponent's license, as noted in the LICENSE file.
 """
 
+import ipaddress
 import json
 import logging
 import requests
@@ -89,19 +90,19 @@ def collect_ranges(swis, page_token, max_results, dns_servers, dns_domain):
     result = []
     if paginator != "" and len(response["results"]) > 0:
         for subnet in response["results"]:
-            count = 2 ** (32 - int(subnet["CIDR"])) # number of IP in subnet
             network_id = "network/%d:%s/%d/%s" % \
                 (subnet["SubnetID"], subnet["Address"], subnet["CIDR"], subnet["FriendlyName"])
+            ipaddreses = ipaddress.IPv4Network(subnet["Address"] + '/' + subnet["CIDR"])
             net_range = {
                 "id": network_id,
                 "name": subnet["FriendlyName"],
-                "startIPAddress": get_next_ip(subnet["Address"], 2),
-                "endIPAddress": get_next_ip(subnet["Address"], count - 2),
+                "startIPAddress": ipaddreses[2],
+                "endIPAddress": ipaddreses[-2],
                 "description": subnet["Comments"],
                 "ipVersion": "IPv4",
                 "addressSpaceId": "default",
                 "subnetPrefixLength": subnet["CIDR"],
-                "gatewayAddress": get_next_ip(subnet["Address"], 1),
+                "gatewayAddress": ipaddreses[1],
                 "domain": dns_domain,
                 "dnsServerAddresses": [dns_servers],
                 "dnsSearchDomains": [dns_domain],
@@ -119,16 +120,6 @@ def collect_ranges(swis, page_token, max_results, dns_servers, dns_domain):
             }
             result.append(net_range)
     return result, next_page_token
-
-
-def get_next_ip(ip_address, step):
-    """
-    Calculates the IP address
-    through 'step' from the initial address
-       get_next_ip("192.168.1.16", 4) -> "192.168.1.20"
-    """
-    ip_parts = ip_address.split(".")
-    return ".".join(ip_parts[:3] + [str(int(ip_parts[3]) + step)])
 
 
 def get_paginator(swis, page_token, max_result):
