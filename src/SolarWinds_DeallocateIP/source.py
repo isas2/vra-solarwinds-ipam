@@ -42,7 +42,7 @@ def do_deallocate_ip(self, auth_credentials, _):
     if ignore_ssl_warning:
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     swis = SwisClient(self.inputs["endpoint"]["endpointProperties"]
-                                 ["hostName"], username, password)
+                                 ["hostName"], username, password, self.inputs["endpoint"]["endpointProperties"]["apiPort"])
 
     deallocation_result = []
     for deallocation in self.inputs["ipDeallocations"]:
