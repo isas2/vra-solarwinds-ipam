@@ -21,6 +21,10 @@
                                 "display": "textField"
                             },
                             {
+                                "id": "apiPort",
+                                "display": "textField"
+                            },
+                            {
                                 "id": "ignoreSslWarning",
                                 "display": "checkbox"
                             },
@@ -69,6 +73,16 @@
                 "required": true
             },
             "default": "192.168.3.159"
+        },
+        "apiPort": {
+            "type": {
+                "dataType": "string"
+            },
+            "label": "REST API Port",
+            "constraints": {
+                "required": true
+            },
+            "default": "17774"
         },
         "ignoreSslWarning": {
             "type": {

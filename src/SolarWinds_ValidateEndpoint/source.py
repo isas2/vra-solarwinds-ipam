@@ -45,7 +45,7 @@ def do_validate_endpoint(self, auth_credentials, _):
         if ignore_ssl_warning:
             requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
         swis = SwisClient(self.inputs["endpointProperties"]["hostName"], \
-                          username, password)
+                          username, password, self.inputs["endpointProperties"]["apiPort"])
 
         logging.info("Start testing endpoint")
         query = """SELECT TOP 3 NodeID, DisplayName

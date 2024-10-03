@@ -47,7 +47,7 @@ def do_allocate_ip(self, auth_credentials, _):
     if ignore_ssl_warning:
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     swis = SwisClient(self.inputs["endpoint"]["endpointProperties"] \
-                                 ["hostName"], username, password)
+                                 ["hostName"], username, password, self.inputs["endpoint"]["endpointProperties"]["apiPort"])
     allocation_result = []
     try:
         for allocation in self.inputs["ipAllocations"]:
